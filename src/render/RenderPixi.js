@@ -53,7 +53,12 @@ var Common = require('../core/Common');
         render.context = new PIXI.WebGLRenderer(render.options.width, render.options.height, {
             view: render.canvas,
             transparent: transparent,
-            antialias: true,
+            autoResize: options.autoResize || false,
+            antialias: options.antialias || false,
+            forceFXAA: options.forceFXAA || false,
+            resolution: options.resolution || 1,
+            clearBeforeRender: options.clearBeforeRender || true,
+            preserveDrawingBuffer: options.preserveDrawingBuffer || false,
             backgroundColor: options.background
         });
         
