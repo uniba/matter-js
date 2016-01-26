@@ -315,8 +315,15 @@ var Common = require('../core/Common');
                 spriteContainer = render.spriteContainer;
 
             // initialise body sprite if not existing
-            if (!sprite)
-                sprite = render.sprites[spriteId] = _createBodySprite(render, body);
+            if (!sprite) {
+                if (bodyRender.sprite.texture instanceof PIXI.Sprite) {
+                    sprite = render.sprites[spriteId] = bodyRender.sprite.texture;
+                    sprite.anchor.x = bodyRender.sprite.xOffset;
+                    sprite.anchor.y = bodyRender.sprite.yOffset;
+                } else {
+                    sprite = render.sprites[spriteId] = _createBodySprite(render, body);
+                }
+            }
 
             // add to scene graph if not already there
             if (Common.indexOf(spriteContainer.children, sprite) === -1)
