@@ -52,7 +52,7 @@ var Common = require('../core/Common');
         // init pixi
         render.context = new PIXI.WebGLRenderer(render.options.width, render.options.height, {
             view: render.canvas,
-            transparent: transparent,
+            transparent: render.options.transparent,
             autoResize: render.options.autoResize || false,
             antialias: render.options.antialias || false,
             forceFXAA: render.options.forceFXAA || false,
@@ -147,6 +147,12 @@ var Common = require('../core/Common');
      * @param {string} background
      */
     RenderPixi.setBackground = function(render, background) {
+        // force transparent
+        background = 'rgba(0,0,0,0)';
+        render.context.backgroundColor = background;
+        render.currentBackground = background;
+        return;
+        
         if (render.currentBackground !== background) {
             var isColor = background.indexOf && background.indexOf('#') !== -1,
                 bgSprite = render.sprites['bg-0'];
