@@ -27,10 +27,11 @@ var Common = require('./Common');
     if (typeof window !== 'undefined') {
         _requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame
                                       || window.mozRequestAnimationFrame || window.msRequestAnimationFrame 
-                                      || function(callback){ window.setTimeout(function() { callback(Common.now()); }, 1000 / 60); };
+                                      || function(callback){ return window.setTimeout(function() { callback(Common.now()); }, 1000 / 60); };
    
         _cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame 
-                                      || window.webkitCancelAnimationFrame || window.msCancelAnimationFrame;
+                                      || window.webkitCancelAnimationFrame || window.msCancelAnimationFrame
+                                      || window.clearTimeout;
     }
 
     /**
